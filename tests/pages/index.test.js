@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import Home from '../../pages/index'
+import json_res from '../../resources/top.json'
 
 describe('Home', () => {
   it('renders without crashing', () => {
-    render(<Home />)
+    const posts = json_res.data.children.map(post => post)
+    render(<Home posts={posts}/>)
     expect(
-      screen.getByRole('heading', { name: 'Welcome to Next.js!' })
+      screen.getByRole('heading', { name: 'Reddit on React.js' })
     ).toBeInTheDocument()
   })
 })
