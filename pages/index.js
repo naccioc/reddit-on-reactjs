@@ -1,8 +1,11 @@
 import Head from 'next/head'
-import { getPosts } from '../pages/api/reddit'
+import { getPosts } from './api/reddit'
+import { initializeStore } from '../state/store'
 import styles from '../styles/Home.module.css'
 
 export async function getServerSideProps() {
+  const store = initializeStore()
+  const initialState = store.getState()
   const data = await getPosts()
 
   if (!data) {
@@ -15,6 +18,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      initialState,
       posts
     }
   }
