@@ -1,6 +1,7 @@
 // Based on https://github.com/vercel/next.js/blob/canary/examples/with-redux/store.js
 import { useMemo } from 'react'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 let store
 
@@ -16,7 +17,8 @@ const reducer = (state = initialState, action) => {
 function initStore(preloadedState = initialState) {
   return createStore(
     reducer,
-    preloadedState
+    preloadedState,
+    composeWithDevTools(applyMiddleware())
   )
 }
 
