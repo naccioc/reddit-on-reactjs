@@ -1,29 +1,30 @@
-import Head from 'next/head'
-import PropTypes from 'prop-types'
-import { getPosts } from './api/reddit'
-import { initializeStore } from '../state/store'
-import styles from '../styles/Home.module.css'
-import List from '../components/List'
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+
+import List from '../components/List';
+import { initializeStore } from '../state/store';
+import styles from '../styles/Home.module.css';
+import { getPosts } from './api/reddit';
 
 export async function getServerSideProps() {
-  const store = initializeStore()
-  const initialState = store.getState()
-  const data = await getPosts()
+  const store = initializeStore();
+  const initial_state = store.getState();
+  const data = await getPosts();
 
   if (!data) {
     return {
       notFound: true
-    }
+    };
   }
 
-  const posts = data.data.children.map(post => post)
+  const posts = data.data.children.map((post) => post);
 
   return {
     props: {
-      initialState,
+      initial_state,
       posts
     }
-  }
+  };
 }
 
 function Home({ posts }) {
@@ -35,20 +36,19 @@ function Home({ posts }) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Reddit on React.js
-        </h1>
+        <h1 className={styles.title}>Reddit on React.js</h1>
 
         <div className={styles.grid}>
           <List posts={posts} />
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 Home.propTypes = {
+  initial_state: PropTypes.object.isRequired,
   posts: PropTypes.array.isRequired
-}
+};
 
-export default Home
+export default Home;

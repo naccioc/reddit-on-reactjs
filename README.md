@@ -1,9 +1,10 @@
 # Reddit on React.js
 
 ## Requirements
-* Node.js 14+
-* npm 6+
-* Reddit API access (more info: https://www.reddit.com/wiki/api)
+
+- Node.js 14+
+- npm 6+
+- Reddit API access (more info: https://www.reddit.com/wiki/api)
 
 ## Getting Started
 

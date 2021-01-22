@@ -1,17 +1,20 @@
-import Head from 'next/head'
-import { Provider } from 'react-redux'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import '../styles/globals.css';
+
 import { CssBaseline } from '@material-ui/core';
-import { useStore } from '../state/store'
-import '../styles/globals.css'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+
+import { useStore } from '../state/store';
 
 function MyApp({ Component, pageProps }) {
-  const store = useStore(pageProps.initialState)
+  const store = useStore(pageProps.initial_state);
   const theme = createMuiTheme({
     palette: {
       type: 'dark'
     }
-  })
+  });
 
   return (
     <>
@@ -28,7 +31,12 @@ function MyApp({ Component, pageProps }) {
         </ThemeProvider>
       </Provider>
     </>
-  )
+  );
 }
 
-export default MyApp
+MyApp.propTypes = {
+  pageProps: PropTypes.object,
+  Component: PropTypes.elementType
+};
+
+export default MyApp;

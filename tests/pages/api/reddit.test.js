@@ -1,6 +1,7 @@
-import { createMocks } from 'node-mocks-http'
-import reddit from '../../../pages/api/reddit'
-import json_res from '../../../resources/top.json'
+import { createMocks } from 'node-mocks-http';
+
+import reddit from '../../../pages/api/reddit';
+import json_res from '../../../resources/top.json';
 
 describe('/api/reddit', () => {
   it('returns the mocked JSON information', async () => {
@@ -8,7 +9,7 @@ describe('/api/reddit', () => {
 
     await reddit(req, res);
 
-    expect(res._getStatusCode()).toBe(200)
-    expect(JSON.parse(res._getData())).toEqual(json_res)
-  })
-})
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(json_res);
+  });
+});

@@ -1,51 +1,51 @@
 // Based on https://github.com/vercel/next.js/blob/canary/examples/with-redux/store.js
-import { useMemo } from 'react'
-import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { useMemo } from 'react';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store
+let store;
 
-const initialState = {}
+const initial_state = {};
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initial_state, action) => {
   switch (action.type) {
     default:
-      return state
+      return state;
   }
-}
+};
 
-function initStore(preloadedState = initialState) {
+function initStore(preloaded_state = initial_state) {
   return createStore(
     reducer,
-    preloadedState,
+    preloaded_state,
     composeWithDevTools(applyMiddleware())
-  )
+  );
 }
 
-export const initializeStore = (preloadedState) => {
-  let _store = store ?? initStore(preloadedState)
+export const initializeStore = (preloaded_state) => {
+  let _store = store ?? initStore(preloaded_state);
 
   // After navigating to a page with an initial Redux state, merge that state
   // with the current state in the store, and create a new store
-  if (preloadedState && store) {
+  if (preloaded_state && store) {
     _store = initStore({
       ...store.getState(),
-      ...preloadedState,
-    })
+      ...preloaded_state
+    });
     // Reset the current store
-    store = undefined
+    store = undefined;
   }
 
   // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store
+  if (typeof window === 'undefined') return _store;
   // Create the store once in the client
-  if (!store) store = _store
+  if (!store) store = _store;
 
-  return _store
-}
+  return _store;
+};
 
-export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState])
+export function useStore(initial_state) {
+  const store = useMemo(() => initializeStore(initial_state), [initial_state]);
 
-  return store
+  return store;
 }

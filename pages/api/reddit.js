@@ -1,10 +1,10 @@
-import json_res from '../../resources/top.json'
+import json_res from '../../resources/top.json';
 
 export default async (req, res) => {
-  res.statusCode = 200
-  res.json(await getPosts())
-}
+  res.statusCode = 200;
+  res.json(await getPosts());
+};
 
 export async function getPosts() {
-  return json_res
+  return json_res;
 }

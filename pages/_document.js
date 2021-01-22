@@ -1,7 +1,7 @@
 // Based on https://github.com/mui-org/material-ui/tree/master/examples/nextjs
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
 
 export default class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
@@ -35,7 +35,7 @@ export default class MyDocument extends Document {
 
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -43,7 +43,10 @@ export default class MyDocument extends Document {
     return {
       ...initialProps,
       // Styles fragment is rendered after the app and page rendering finish.
-      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+      styles: [
+        ...React.Children.toArray(initialProps.styles),
+        sheets.getStyleElement()
+      ]
     };
   }
 
