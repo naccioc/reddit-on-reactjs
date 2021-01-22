@@ -1,7 +1,9 @@
 import Head from 'next/head'
+import PropTypes from 'prop-types'
 import { getPosts } from './api/reddit'
 import { initializeStore } from '../state/store'
 import styles from '../styles/Home.module.css'
+import List from '../components/List'
 
 export async function getServerSideProps() {
   const store = initializeStore()
@@ -24,7 +26,7 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ posts }) {
+function Home({ posts }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -38,11 +40,15 @@ export default function Home({ posts }) {
         </h1>
 
         <div className={styles.grid}>
-          <ul key="test">
-            {posts.map(post => <li key={post.data.id}>{post.data.title}</li>)}
-          </ul>
+          <List posts={posts} />
         </div>
       </main>
     </div>
   )
 }
+
+Home.propTypes = {
+  posts: PropTypes.array.isRequired
+}
+
+export default Home

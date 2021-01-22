@@ -9,5 +9,9 @@ describe('Home', () => {
     expect(
       screen.getByRole('heading', { name: 'Reddit on React.js' })
     ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('navigation', { name: posts[0].title })
+    ).toBeInTheDocument()
   })
 })
