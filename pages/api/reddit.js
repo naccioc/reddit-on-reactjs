@@ -1,4 +1,4 @@
-import json_res from '../../resources/top.json';
+import json_res from '../../resources/top.mock.json';
 
 export default async (req, res) => {
   res.statusCode = 200;
