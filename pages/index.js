@@ -1,9 +1,18 @@
+import {
+  AppBar,
+  Drawer,
+  IconButton,
+  Toolbar,
+  Typography
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import List from '../components/List';
 import { initializeStore } from '../state/store';
-import styles from '../styles/Home.module.css';
+import useStyles from '../styles/Home.styles';
 import { getPosts } from './api/reddit';
 
 export async function getServerSideProps() {
@@ -28,19 +37,44 @@ export async function getServerSideProps() {
 }
 
 function Home({ posts }) {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Reddit on React.js</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Reddit on React.js</h1>
-
-        <div className={styles.grid}>
+      <main>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              edge="start"
+              onClick={handleClick}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="h1">
+              Reddit on React.js
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          variant="persistent"
+          open={open}
+        >
           <List posts={posts} />
-        </div>
+        </Drawer>
       </main>
     </div>
   );

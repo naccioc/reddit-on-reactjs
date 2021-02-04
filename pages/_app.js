@@ -1,9 +1,8 @@
-import '../styles/globals.css';
-
 import { CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import { Fragment, useEffect } from 'react';
 import { Provider } from 'react-redux';
 
 import { useStore } from '../state/store';
@@ -16,8 +15,16 @@ function MyApp({ Component, pageProps }) {
     }
   });
 
+  useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
-    <>
+    <Fragment>
       <Head>
         <meta
           name="viewport"
@@ -30,7 +37,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </ThemeProvider>
       </Provider>
-    </>
+    </Fragment>
   );
 }
 
