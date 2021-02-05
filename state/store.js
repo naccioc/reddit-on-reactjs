@@ -1,22 +1,21 @@
 // Based on https://github.com/vercel/next.js/blob/canary/examples/with-redux/store.js
 import { useMemo } from 'react';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+import drawer_status from './reducers/drawer';
 
 let store;
 
 const initial_state = {};
 
-const reducer = (state = initial_state, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+const combinedReducers = combineReducers({
+  drawer_status
+});
 
 function initStore(preloaded_state = initial_state) {
   return createStore(
-    reducer,
+    combinedReducers,
     preloaded_state,
     composeWithDevTools(applyMiddleware())
   );

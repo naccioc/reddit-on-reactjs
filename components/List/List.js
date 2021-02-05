@@ -3,18 +3,20 @@ import MuiList from '@material-ui/core/List';
 import ChevrontLeftIcon from '@material-ui/icons/ChevronLeft';
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
+import { connect } from 'react-redux';
 
+import { closeDrawer } from '../../state/actions/drawer';
 import ListItem from '../ListItem';
 import useStyles from './List.styles';
 
-function List({ posts }) {
+function List({ posts, closeDrawer }) {
   const classes = useStyles();
 
   return (
     <MuiList component="nav" dense disablePadding>
       <ListSubheader className={classes.listSubheader} component="h2">
         Reddit Posts
-        <IconButton onClick={() => console.log('sasa')}>
+        <IconButton onClick={closeDrawer}>
           <ChevrontLeftIcon />
         </IconButton>
       </ListSubheader>
@@ -29,7 +31,12 @@ function List({ posts }) {
 }
 
 List.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  closeDrawer: PropTypes.func.isRequired
 };
 
-export default List;
+const mapDispatchtoProps = {
+  closeDrawer
+};
+
+export default connect(null, mapDispatchtoProps)(List);
