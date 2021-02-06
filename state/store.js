@@ -1,7 +1,10 @@
 // Based on https://github.com/vercel/next.js/blob/canary/examples/with-redux/store.js
+//          https://github.com/vercel/next.js/blob/canary/examples/with-redux-persist/store.js
 import { useMemo } from 'react';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import drawer_status from './reducers/drawer';
 
@@ -13,9 +16,17 @@ const combinedReducers = combineReducers({
   drawer_status
 });
 
+const persistConfig = {
+  key: 'primary',
+  storage,
+  whitelist: []
+};
+
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
+
 function initStore(preloaded_state = initial_state) {
   return createStore(
-    combinedReducers,
+    persistedReducer,
     preloaded_state,
     composeWithDevTools(applyMiddleware())
   );

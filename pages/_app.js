@@ -4,11 +4,16 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { Fragment, useEffect } from 'react';
 import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { useStore } from '../state/store';
 
 function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initial_state);
+  const persistor = persistStore(store, {}, () => {
+    persistor.persist();
+  });
   const theme = createMuiTheme({
     palette: {
       type: 'dark'
@@ -32,10 +37,12 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <PersistGate persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </Fragment>
   );
