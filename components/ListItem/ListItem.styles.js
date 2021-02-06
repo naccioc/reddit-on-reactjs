@@ -35,10 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem_info: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    flexBasis: '100%'
   },
   listItem_metadata: {},
-  listItem_metadata_author: {},
+  listItem_metadata_author: {
+    color: `${theme.palette.text.hint}`
+  },
   listItem_metadata_timeago: {
     paddingLeft: '1rem',
     color: `${theme.palette.secondary.light}`
@@ -46,7 +49,17 @@ const useStyles = makeStyles((theme) => ({
   listItem_title: {
     marginTop: 0
   },
-  listItem_comments: {}
+  listItem_actions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  listItem_actions_comments: {
+    color: `${theme.palette.text.hint}`
+  },
+  listItem_actions_delete: {
+    marginLeft: 'auto'
+  }
 }));
 
 export default useStyles;

@@ -1,5 +1,6 @@
-import { Avatar, Badge } from '@material-ui/core';
+import { Avatar, Badge, IconButton } from '@material-ui/core';
 import MuiListItem from '@material-ui/core/ListItem';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ImageIcon from '@material-ui/icons/Image';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -51,8 +52,13 @@ function ListItem({ post }) {
           <span className={classes.listItem_metadata_timeago}>{post_date}</span>
         </div>
         <h3 className={classes.listItem_title}>{post.data.title}</h3>
-        <div className={classes.listItem_comments}>
-          {post.data.num_comments} comments
+        <div className={classes.listItem_actions}>
+          <div className={classes.listItem_actions_comments}>
+            {post.data.num_comments} comments
+          </div>
+          <IconButton className={classes.listItem_actions_delete}>
+            <DeleteIcon />
+          </IconButton>
         </div>
       </div>
     </MuiListItem>
