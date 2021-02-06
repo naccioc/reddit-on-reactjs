@@ -1,6 +1,6 @@
 import { CLOSE_DRAWER, OPEN_DRAWER } from '../constants';
 
-export default function drawer_status(state = true, action) {
+const drawerStatus = (state = true, action) => {
   switch (action.type) {
     case OPEN_DRAWER:
       return true;
@@ -9,4 +9,6 @@ export default function drawer_status(state = true, action) {
     default:
       return state;
   }
-}
+};
+
+export default drawerStatus;
