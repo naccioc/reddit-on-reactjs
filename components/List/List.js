@@ -13,13 +13,17 @@ function List({ posts, closeDrawer }) {
   const classes = useStyles();
 
   return (
-    <MuiList component="nav" dense disablePadding>
-      <ListSubheader className={classes.listSubheader} component="h2">
-        Reddit Posts
-        <IconButton onClick={closeDrawer}>
-          <ChevrontLeftIcon />
-        </IconButton>
-      </ListSubheader>
+    <MuiList
+      component="nav"
+      subheader={
+        <ListSubheader className={classes.listSubheader} component="h2">
+          Reddit Posts
+          <IconButton onClick={closeDrawer}>
+            <ChevrontLeftIcon />
+          </IconButton>
+        </ListSubheader>
+      }
+    >
       {posts.map((post, index, array) => (
         <Fragment key={post.data.id}>
           <ListItem post={post} />

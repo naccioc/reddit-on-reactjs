@@ -1,6 +1,6 @@
-import { ListItemIcon } from '@material-ui/core';
+import { Avatar, Badge } from '@material-ui/core';
 import MuiListItem from '@material-ui/core/ListItem';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import ImageIcon from '@material-ui/icons/Image';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -14,23 +14,47 @@ function ListItem({ post }) {
 
   return (
     <MuiListItem
-      className={classes.MuiListItem}
-      component="a"
+      className={classes.listItem}
+      component="div"
       title={post.data.title}
-      href={`${domain}${post.data.permalink}`}
+      data-href={`${domain}${post.data.permalink}`}
       alignItems="flex-start"
       button
       onClick={handleClick}
     >
-      <div>
-        <ListItemIcon>
-          <FiberManualRecordIcon color="secondary" fontSize="small" />
-        </ListItemIcon>
-        {post.data.author}
-        {post_date}
+      <Badge
+        classes={{
+          root: classes.Badge_root,
+          badge: classes.Badge_badge
+        }}
+        overlap="rectangle"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        variant="dot"
+        component="div"
+      >
+        <Avatar
+          variant="square"
+          alt={post.data.title}
+          src={post.data.thumbnail}
+        >
+          <ImageIcon />
+        </Avatar>
+      </Badge>
+      <div className={classes.listItem_info}>
+        <div className={classes.listItem_metadata}>
+          <span className={classes.listItem_metadata_author}>
+            {post.data.author}
+          </span>
+          <span className={classes.listItem_metadata_timeago}>{post_date}</span>
+        </div>
+        <h3 className={classes.listItem_title}>{post.data.title}</h3>
+        <div className={classes.listItem_comments}>
+          {post.data.num_comments} comments
+        </div>
       </div>
-      <div>{post.data.title}</div>
-      <div>{post.data.num_comments}</div>
     </MuiListItem>
   );
 }
