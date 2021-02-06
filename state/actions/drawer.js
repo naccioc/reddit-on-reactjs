@@ -1,4 +1,4 @@
-import { CLOSE_DRAWER, OPEN_DRAWER } from '../constants';
+import { CLOSE_DRAWER, OPEN_DRAWER } from '../constants/drawer';
 
 export const openDrawer = () => ({
   type: OPEN_DRAWER
