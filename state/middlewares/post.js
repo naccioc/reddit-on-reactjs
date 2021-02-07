@@ -1,4 +1,4 @@
-import { postsLoaded } from '../actions/post';
+import { setPosts } from '../actions/post';
 import { GET_POSTS } from '../constants/post';
 
 export const getPostsMiddleware = (storeAPI) => (next) => async (action) => {
@@ -16,7 +16,7 @@ export const getPostsMiddleware = (storeAPI) => (next) => async (action) => {
       );
     }
 
-    storeAPI.dispatch(postsLoaded(posts));
+    storeAPI.dispatch(setPosts(posts));
   }
 
   return next(action);

@@ -1,4 +1,9 @@
-import { DELETE_POST, GET_POSTS, POSTS_LOADED } from '../constants/post';
+import { DELETE_POST, GET_POSTS, SET_POSTS } from '../constants/post';
+
+export const deletePost = (id) => ({
+  type: DELETE_POST,
+  payload: id
+});
 
 export const getPosts = (limit, after) => ({
   type: GET_POSTS,
@@ -8,12 +13,7 @@ export const getPosts = (limit, after) => ({
   }
 });
 
-export const postsLoaded = (posts) => ({
-  type: POSTS_LOADED,
+export const setPosts = (posts) => ({
+  type: SET_POSTS,
   payload: posts
-});
-
-export const deletePost = (id) => ({
-  type: DELETE_POST,
-  payload: id
 });

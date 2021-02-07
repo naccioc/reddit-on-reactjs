@@ -1,10 +1,10 @@
-import { DELETE_POST, POSTS_LOADED } from '../constants/post';
+import { DELETE_POST, SET_POSTS } from '../constants/post';
 
 const posts = (state = [], action) => {
   switch (action.type) {
     case DELETE_POST:
       return state.filter((post) => post.data.name !== action.payload);
-    case POSTS_LOADED:
+    case SET_POSTS:
       return [...state, ...action.payload];
     default:
       return state;
