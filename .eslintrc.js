@@ -16,7 +16,8 @@ module.exports = {
     browser: true,
     amd: true,
     node: true,
-    'jest/globals': true
+    'jest/globals': true,
+    es2020: true
   },
   extends: [
     'eslint:recommended',
