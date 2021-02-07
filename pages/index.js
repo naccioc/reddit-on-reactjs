@@ -19,15 +19,13 @@ import { getPosts } from './api/reddit';
 export async function getServerSideProps() {
   const store = initializeStore();
   const initial_state = store.getState();
-  const data = await getPosts();
+  const posts = await getPosts();
 
-  if (!data) {
+  if (!posts) {
     return {
       notFound: true
     };
   }
-
-  const posts = data.data.children.map((post) => post);
 
   return {
     props: {
