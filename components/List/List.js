@@ -1,6 +1,7 @@
 import { Divider, IconButton, ListSubheader } from '@material-ui/core';
 import MuiList from '@material-ui/core/List';
 import ChevrontLeftIcon from '@material-ui/icons/ChevronLeft';
+import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
@@ -18,9 +19,14 @@ function List({ posts, closeDrawer }) {
       subheader={
         <ListSubheader className={classes.listSubheader} component="h2">
           Reddit Posts
-          <IconButton onClick={closeDrawer}>
-            <ChevrontLeftIcon />
-          </IconButton>
+          <div className={classes.listSubheader_actions}>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton onClick={closeDrawer}>
+              <ChevrontLeftIcon />
+            </IconButton>
+          </div>
         </ListSubheader>
       }
     >
