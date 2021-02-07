@@ -7,10 +7,11 @@ import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { closeDrawer } from '../../state/actions/drawer';
+import { deleteAll } from '../../state/actions/post';
 import ListItem from '../ListItem';
 import useStyles from './List.styles';
 
-function List({ posts, closeDrawer }) {
+function List({ posts, closeDrawer, deleteAll }) {
   const classes = useStyles();
 
   return (
@@ -20,7 +21,7 @@ function List({ posts, closeDrawer }) {
         <ListSubheader className={classes.listSubheader} component="h2">
           Reddit Posts
           <div className={classes.listSubheader_actions}>
-            <IconButton>
+            <IconButton onClick={deleteAll}>
               <DeleteIcon />
             </IconButton>
             <IconButton onClick={closeDrawer}>
@@ -42,11 +43,13 @@ function List({ posts, closeDrawer }) {
 
 List.propTypes = {
   posts: PropTypes.array.isRequired,
-  closeDrawer: PropTypes.func.isRequired
+  closeDrawer: PropTypes.func.isRequired,
+  deleteAll: PropTypes.func.isRequired
 };
 
 const mapDispatchtoProps = {
-  closeDrawer
+  closeDrawer,
+  deleteAll
 };
 
 export default connect(null, mapDispatchtoProps)(List);

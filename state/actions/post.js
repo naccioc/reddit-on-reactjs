@@ -1,4 +1,11 @@
-import { DELETE_POST, GET_POSTS, SET_POSTS } from '../constants/post';
+import {
+  DELETE_ALL,
+  DELETE_POST,
+  GET_POSTS,
+  SET_POSTS
+} from '../constants/post';
+
+export const deleteAll = () => ({ type: DELETE_ALL });
 
 export const deletePost = (id) => ({
   type: DELETE_POST,
