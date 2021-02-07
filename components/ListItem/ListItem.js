@@ -56,7 +56,7 @@ function ListItem({ post }) {
           <div className={classes.listItem_actions_comments}>
             {post.data.num_comments} comments
           </div>
-          <IconButton className={classes.listItem_actions_delete}>
+          <IconButton disableRipple className={classes.listItem_actions_delete}>
             <DeleteIcon />
           </IconButton>
         </div>
