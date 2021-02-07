@@ -6,14 +6,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { getPostsMiddleware } from './middlewares/post';
 import drawer_status from './reducers/drawer';
+import posts from './reducers/post';
 
 let store;
 
 const initial_state = {};
 
 const combinedReducers = combineReducers({
-  drawer_status
+  drawer_status,
+  posts
 });
 
 const persistConfig = {
@@ -28,7 +31,7 @@ function initStore(preloaded_state = initial_state) {
   return createStore(
     persistedReducer,
     preloaded_state,
-    composeWithDevTools(applyMiddleware())
+    composeWithDevTools(applyMiddleware(getPostsMiddleware))
   );
 }
 

@@ -12,16 +12,18 @@ import { connect } from 'react-redux';
 
 import List from '../components/List';
 import { openDrawer } from '../state/actions/drawer';
+import { getPosts } from '../state/actions/post';
 import { initializeStore } from '../state/store';
 import useStyles from '../styles/Home.styles';
-import { getPosts } from './api/reddit';
 
 export async function getServerSideProps() {
   const store = initializeStore();
-  const initial_state = store.getState();
-  const posts = await getPosts();
 
-  if (!posts) {
+  await store.dispatch(getPosts());
+
+  const initial_state = store.getState();
+
+  if (!initial_state.posts) {
     return {
       notFound: true
     };
@@ -29,8 +31,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      initial_state,
-      posts
+      initial_state
     }
   };
 }
@@ -83,7 +84,8 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  drawer_status: state.drawer_status
+  drawer_status: state.drawer_status,
+  posts: state.posts
 });
 
 const mapDispatchToProps = {
