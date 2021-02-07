@@ -4,14 +4,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageIcon from '@material-ui/icons/Image';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { deletePost } from '../../state/actions/post';
 import useStyles from './ListItem.styles';
 
-function ListItem({ post }) {
+function ListItem({ post, deletePost }) {
   const classes = useStyles();
   const domain = 'https://reddit.com';
   const post_date = formatDistance(fromUnixTime(post.data.created), new Date());
   const handleClick = (event) => event.preventDefault();
+  const handleDelete = (event) => {
+    event.stopPropagation();
+    deletePost(event.currentTarget.getAttribute('data-id'));
+  };
 
   return (
     <MuiListItem
@@ -56,7 +62,12 @@ function ListItem({ post }) {
           <div className={classes.listItem_actions_comments}>
             {post.data.num_comments} comments
           </div>
-          <IconButton disableRipple className={classes.listItem_actions_delete}>
+          <IconButton
+            disableRipple
+            className={classes.listItem_actions_delete}
+            data-id={post.data.name}
+            onClick={handleDelete}
+          >
             <DeleteIcon />
           </IconButton>
         </div>
@@ -66,7 +77,12 @@ function ListItem({ post }) {
 }
 
 ListItem.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
 };
 
-export default ListItem;
+const mapDispatchToProps = {
+  deletePost
+};
+
+export default connect(null, mapDispatchToProps)(ListItem);
