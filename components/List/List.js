@@ -4,14 +4,17 @@ import ChevrontLeftIcon from '@material-ui/icons/ChevronLeft';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { closeDrawer } from '../../state/actions/drawer';
 import { deleteAll } from '../../state/actions/post';
 import ListItem from '../ListItem';
+import useListItemStyles from '../ListItem/ListItem.styles';
 import useStyles from './List.styles';
 
 function List() {
   const classes = useStyles();
+  const listItemClasses = useListItemStyles();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
 
@@ -36,12 +39,23 @@ function List() {
         </ListSubheader>
       }
     >
-      {posts.map((post, index, array) => (
-        <Fragment key={post.data.id}>
-          <ListItem post={post} />
-          {array.length - 1 !== index && <Divider variant="inset" />}
-        </Fragment>
-      ))}
+      <TransitionGroup>
+        {posts.map((post, index, array) => (
+          <CSSTransition
+            key={post.data.id}
+            timeout={500}
+            classNames={{
+              exit: listItemClasses.listItem_exit,
+              exitActive: listItemClasses.listItem_exit_active
+            }}
+          >
+            <Fragment>
+              <ListItem post={post} />
+              {array.length - 1 !== index && <Divider variant="inset" />}
+            </Fragment>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </MuiList>
   );
 }

@@ -33,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     columnGap: '1.25rem'
   },
+  listItem_exit: {
+    opacity: 1
+  },
+  listItem_exit_active: {
+    opacity: 0,
+    transition: 'opacity 500ms ease-in'
+  },
   listItem_info: {
     display: 'flex',
     flexDirection: 'column',
