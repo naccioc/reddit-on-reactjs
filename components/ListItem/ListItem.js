@@ -4,19 +4,30 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ImageIcon from '@material-ui/icons/Image';
 import { formatDistance, fromUnixTime } from 'date-fns';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { deletePost } from '../../state/actions/post';
+import { deletePost, readPost } from '../../state/actions/post';
 import useStyles from './ListItem.styles';
 
-function ListItem({ post, deletePost }) {
+function ListItem({ post }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const domain = 'https://reddit.com';
   const post_date = formatDistance(fromUnixTime(post.data.created), new Date());
-  const handleClick = (event) => event.preventDefault();
+
+  // Handlers
+  const handleClick = (event) => {
+    const id = event.currentTarget.getAttribute('data-id');
+
+    event.preventDefault();
+    dispatch(readPost(id));
+  };
+
   const handleDelete = (event) => {
+    const id = event.currentTarget.getAttribute('data-id');
+
     event.stopPropagation();
-    deletePost(event.currentTarget.getAttribute('data-id'));
+    dispatch(deletePost(id));
   };
 
   return (
@@ -27,6 +38,7 @@ function ListItem({ post, deletePost }) {
       data-href={`${domain}${post.data.permalink}`}
       alignItems="flex-start"
       button
+      data-id={post.data.name}
       onClick={handleClick}
     >
       <Badge
@@ -41,6 +53,7 @@ function ListItem({ post, deletePost }) {
         }}
         variant="dot"
         component="div"
+        invisible={!!post.read}
       >
         <Avatar
           variant="square"
@@ -77,12 +90,7 @@ function ListItem({ post, deletePost }) {
 }
 
 ListItem.propTypes = {
-  post: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired
+  post: PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = {
-  deletePost
-};
-
-export default connect(null, mapDispatchToProps)(ListItem);
+export default ListItem;

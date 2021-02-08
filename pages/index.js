@@ -7,8 +7,7 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import List from '../components/List';
 import { openDrawer } from '../state/actions/drawer';
@@ -36,8 +35,13 @@ export async function getServerSideProps() {
   };
 }
 
-function Home({ posts, drawer_status, openDrawer }) {
+function Home() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const drawer_status = useSelector((state) => state.drawer_status);
+
+  // Handlers
+  const handleDrawer = () => dispatch(openDrawer());
 
   return (
     <div>
@@ -52,7 +56,7 @@ function Home({ posts, drawer_status, openDrawer }) {
             <IconButton
               className={classes.menuButton}
               edge="start"
-              onClick={openDrawer}
+              onClick={handleDrawer}
             >
               <MenuIcon />
             </IconButton>
@@ -69,27 +73,11 @@ function Home({ posts, drawer_status, openDrawer }) {
           variant="persistent"
           open={drawer_status}
         >
-          <List posts={posts} />
+          <List />
         </Drawer>
       </main>
     </div>
   );
 }
 
-Home.propTypes = {
-  initial_state: PropTypes.object.isRequired,
-  posts: PropTypes.array.isRequired,
-  drawer_status: PropTypes.bool.isRequired,
-  openDrawer: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  drawer_status: state.drawer_status,
-  posts: state.posts
-});
-
-const mapDispatchToProps = {
-  openDrawer
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
