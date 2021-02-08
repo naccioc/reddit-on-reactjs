@@ -6,6 +6,7 @@ import { formatDistance, fromUnixTime } from 'date-fns';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
+import { closeDrawer } from '../../state/actions/drawer';
 import { deletePost, readPost } from '../../state/actions/post';
 import { loadPost } from '../../state/actions/post_detail';
 import useStyles from './ListItem.styles';
@@ -21,8 +22,9 @@ function ListItem({ post }) {
     const id = event.currentTarget.getAttribute('data-id');
 
     event.preventDefault();
-    dispatch(readPost(id));
+    dispatch(closeDrawer());
     dispatch(loadPost(post));
+    dispatch(readPost(id));
   };
 
   const handleDelete = (event) => {
