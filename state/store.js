@@ -9,6 +9,7 @@ import storage from 'redux-persist/lib/storage';
 import { getPostsMiddleware } from './middlewares/post';
 import drawer_status from './reducers/drawer';
 import posts from './reducers/post';
+import post_detail from './reducers/post_detail';
 
 let store;
 
@@ -16,7 +17,8 @@ const initial_state = {};
 
 const combinedReducers = combineReducers({
   drawer_status,
-  posts
+  posts,
+  post_detail
 });
 
 const persistConfig = {
