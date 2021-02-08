@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { deletePost, readPost } from '../../state/actions/post';
+import { loadPost } from '../../state/actions/post_detail';
 import useStyles from './ListItem.styles';
 
 function ListItem({ post }) {
@@ -21,6 +22,7 @@ function ListItem({ post }) {
 
     event.preventDefault();
     dispatch(readPost(id));
+    dispatch(loadPost(post));
   };
 
   const handleDelete = (event) => {
@@ -36,9 +38,9 @@ function ListItem({ post }) {
       component="div"
       title={post.data.title}
       data-href={`${domain}${post.data.permalink}`}
+      data-id={post.data.name}
       alignItems="flex-start"
       button
-      data-id={post.data.name}
       onClick={handleClick}
     >
       <Badge

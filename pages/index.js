@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Detail from '../components/Detail';
 import List from '../components/List';
 import { openDrawer } from '../state/actions/drawer';
 import { getPosts } from '../state/actions/post';
@@ -50,32 +51,31 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              edge="start"
-              onClick={handleDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="h1">
-              Reddit on React.js
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          variant="persistent"
-          open={drawer_status}
-        >
-          <List />
-        </Drawer>
-      </main>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            className={classes.menuButton}
+            edge="start"
+            onClick={handleDrawer}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="h6">
+            Reddit on React.js
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+        variant="persistent"
+        open={drawer_status}
+      >
+        <List />
+      </Drawer>
+      <Detail />
     </div>
   );
 }
