@@ -14,7 +14,6 @@ import useStyles from './ListItem.styles';
 function ListItem({ post }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const domain = 'https://reddit.com';
   const post_date = formatDistance(fromUnixTime(post.data.created), new Date());
 
   // Handlers
@@ -38,8 +37,6 @@ function ListItem({ post }) {
     <MuiListItem
       className={classes.listItem}
       component="div"
-      title={post.data.title}
-      data-href={`${domain}${post.data.permalink}`}
       data-id={post.data.name}
       alignItems="flex-start"
       button
