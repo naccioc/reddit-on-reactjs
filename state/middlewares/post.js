@@ -11,9 +11,13 @@ export const getPostsMiddleware = (storeAPI) => (next) => async (action) => {
 
       posts = await getPosts();
     } else {
-      posts = await fetch(
+      const response = await fetch(
         `/api/reddit?=limit${limit || ''}&after=${after || ''}`
       );
+
+      if (response.ok) {
+        posts = await response.json();
+      }
     }
 
     storeAPI.dispatch(setPosts(posts));

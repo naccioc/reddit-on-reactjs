@@ -15,7 +15,11 @@ function mockResponse(limit, after) {
     start_index = after_index + 1;
   }
 
-  posts.data.children = posts.data.children.slice(start_index, limit);
+  posts.data.children = posts.data.children.slice(
+    start_index,
+    start_index + limit
+  );
+
   posts_length = posts.data.children.length;
   posts.data.after = posts.data.children[posts_length - 1].data.name;
 
